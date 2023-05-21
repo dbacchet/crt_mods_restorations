@@ -1,32 +1,8 @@
-# Prerequisites
-*.d
+# build
+build*/
+bazel-*
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+compile_commands.json
+imgui.ini
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+.DS_Store
