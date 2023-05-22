@@ -1,7 +1,17 @@
 KV-13FM12 MultiMod
 ==================
 
-It is a BA5 chassis, so for RGB the standard mux mod works.
+A while ago, while helping a friend to mod their 13FM12, I had the idea of adding all possible inputs to this little tv, and enable them through the remote. The main reason honestly was learning and experimenting, and doing that with a nice project.
+
+So when the same TV showed up at our local e-waste center I just grabbed it and started this journey...
+This TV originarily has RF and two composite inputs, one in the back and one in the front; at the end it will have:
+
+* RGB with a SCART connector
+* Component with YPbPr RCA connectors
+* S-video
+* switching between RF, RGB and component using the remote (and not a physical switch)
+
+Let's get started... The 13FM12 has a BA5 chassis, so for RGB the standard mux mod works; for a detailed explanation you can check [this article](https://crtdatabase.com/crts/sony/sony-kv-27fs13) on CRTDatabase, or my Reddit post about a [KV-24FV12](https://www.reddit.com/r/crtgaming/comments/zj4o1f/sony_kv24fv12_rgb_mod/)
 
 ## RGB Mux
 Remove the grounding resistors R1084, R1085, R1086.
@@ -136,8 +146,8 @@ We can use another CD4052 as a global switch, extending the previous circuit lik
 ![double_CD4052_schema](double_CD4052_schema.png)
 
 The following pictures show the circuit implemented on a breadboard and the final one:
-ADD PICTURE
-ADD PICTURE
+![double_CD4052_bread](double_CD4052_bread.jpeg)
+![double_CD4052_pcb](double_CD4052_pcb.jpeg)
 
 The push button is hidden behind the panel door. When it is On we have RF + RGB (Video1) + Component (Video2), and when it's Off we have RF + composite (Video1 and Video2) + S-video (Video1).
 
