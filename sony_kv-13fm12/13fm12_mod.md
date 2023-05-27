@@ -16,12 +16,8 @@ Let's get started...
 The 13FM12 has a BA5 chassis, so for RGB the standard mux mod works; for a detailed explanation you can check [this article](https://crtdatabase.com/crts/sony/sony-kv-27fs13) on CRTDatabase, or my previous Reddit post about a [KV-24FV12](https://www.reddit.com/r/crtgaming/comments/zj4o1f/sony_kv24fv12_rgb_mod/)
 
 ## RGB Mux
-The entire mod can be done in the MB board; start by removing the grounding resistors R1084, R1085, R1086.
-
-Before:
+The entire mod can be done in the MB board; start by removing the grounding resistors R1084, R1085, R1086:
 ![rgb_res_before](rgb_res_before.jpeg)
-After:
-![rgb_res_after](rgb_res_after.jpeg)
 
 The R,G,B signals can be injected in the jumper wires JW1337 ( R), JW1336 (G), JW1335 (B), and the blanking signal Ys to JW1334.
 
@@ -32,7 +28,7 @@ I chose to use Video1 for the RGB sync, and injected the signal to the negative 
 I used my SCART mod board to simplify the wiring. You can see that there are 75 Ohm termination resistors and 680 Ohm inline resistors on the R,G,B lines. 
 ![rgb_scart_board](rgb_scart_board.jpeg)
 
-#### Audio
+#### RGB Audio
 
 Since we are using Video1 for RGB, we need to connect the SCART audio to the right place. In this case, the most convenient place to inject the signal is the negative pole of C208 (close to the existing RCA connectors in the A board).
 
@@ -42,17 +38,14 @@ The chroma chip accpets Y, Pr and Pb at the pins 37, 38, 39, and enables Compone
 
 The first thing to do is to remove the existing grounding capacitors C1345, C1349, C1350:
 ![comp_res_schema](comp_res_schema.png)
-Before:
 ![comp_res_before](comp_res_before.jpeg)
-After:
-![comp_res_after](comp_res_after.jpeg)
 
-Then what we need to do is to inject Y, Pb, Pr to the same pins, using 0.1uF coupling transistors and terminating each signal with 75 Ohm resistors. The Y cable has to be also connected to the Sync input, and since I chose to use Video2 for the Component sync, that corresponded to the front RCA connector. This will generate too much shift in the image, same problem we have with the RGB mod. See the "Preventing image shift" section below for the solution we implemented.
+Then what we need to do is to inject Y, Pb, Pr to the same pins, using 0.1uF coupling transistors and terminating each signal with 75 Ohm resistors. The Y cable has to be also connected to the Sync input (after termination and with another 0.1uF cap), and since I chose to use Video2 for the Component sync, that corresponded to the front RCA connector. This will generate too much shift in the image, same problem we have with the RGB mod. See the "Preventing image shift" section below for the solution we implemented.
 
-#### Audio
+#### Component Audio
 
-There are two options here; we can either wire the audio signal to the front video2 connector on the HD board and inject on R2216/R2215 or we can recreate the small circuit with the grounding resistor and the capacitor, and inject at the jumper wire JW250 in the A board (close to the existing RCA connector). I decided to go that route so I added a 470k Ohms ground resistor and a 4.7k Ohm inline resistor and a 4.7uF cap to the small PCB I used for the other components needed for YPbPr. 
-Another excellent point is using the unpopulated connector CN460, pin 19.
+There are two options here; we can either wire the audio signal to the front video2 connector on the HD board and inject on R2216/R2215 or we can recreate the small circuit with the grounding resistor and the capacitor, and inject at the jumper wire JW250 in the A board (close to the existing RCA connector). I decided to go that route so I added a 470k Ohms ground resistor, a 4.7k Ohm inline resistor and a 4.7uF cap to the small PCB I used for the other components needed for YPbPr. 
+For injectiion, another excellent point is the unpopulated connector CN460, pin 19.
 
 The following picture shows the breakout board I used for the Y,Pb,Pr and audio signals.
 ![comp_breakout_board](comp_breakout_board.jpeg)
@@ -60,10 +53,10 @@ The following picture shows the breakout board I used for the Y,Pb,Pr and audio 
 
 ## S-video
 
-I also wanted to add s-video, because... well, why not! At the end of the day the main purpose of this project was to experiment and learn.
+I also wanted to add s-video, because... well, why not! At the end of the day the main purpose of this project was to experiment and learn...
 
 The chroma chip can take luma and chroma from the comb filter on pins 9 and 7, that are used for _all_ the input sources, independently from which channel is selected. But there are also 2 additional pins (4 and 2) that are used in other BA5 sets for s-video on Video1. 
-In order to use the additional s-video input, unfortunately on this set is not enough to just hook Y and C to the chroma. Looking at the schematics of another set with the same chassis and s-video (for example the KV-20FS12), C can be injected directly to the chroma, but Y goes to both the Chroma and the Micom, using a video switch IC that is missing on the 13FM12 and has to be populated along with a few other components.
+In order to use the additional s-video input on this set is not enough to just hook Y and C to the chroma, unfortunately. Looking at the schematics of another set with the same chassis and s-video (for example the KV-20FS12), C can be injected directly to the chroma, but Y goes to both the Chroma and the Micom, using a video switch IC that is missing on the 13FM12 and has to be populated along with a few other components.
 The steps that need to be taken are:
 
 * add the video switch IC1002. It's a NJM2534M, and I used one from a donor board in a broken BA5 chassis. This chip routes the h-sync to the micom from the right source.
@@ -92,7 +85,7 @@ Video 1 will now be used for both the rear composite and the s-video inputs, and
 In order to use the remote to automatically enable RGB and Component on the right channel, we will use the O-SEL0 and O-SEL1 signals (pin 10 and 11) in the Micom. They will go high (approx 3.5V) when the TV is tuned on Video1 and Video2, respectively.
 The idea is to use those signals to trigger YS2 for RGB (pin 29 in the chroma) when on Video 1 and YUWSW for component (pin 36 in the chroma) when on Video 2.
 
-The problem is that connecting them directly will bring down the voltage too much on those lines and make switching of the audio/video very unstable. Using a 1k or 2k resistor in line will not work either, because then the voltage will not be high enough to activate YS and YUVSW.
+The problem is that connecting them directly will bring down the voltage too much on those lines and make switching of the audio/video very unstable. Using an inline 1k or 2k resistor will not work either, because then the voltage will not be high enough to activate YS and YUVSW in the chroma.
 
 The solution in this case is to create a buffer using a transistor for each line, so we can decouple the two sides, and get ~3V to the blanking pins. The schematic is like the following:
 ![buffer_schema](buffer_schema.png)
