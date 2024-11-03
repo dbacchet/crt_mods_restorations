@@ -1,4 +1,4 @@
-JVM TM-H1700G RGB Mod
+JVC TM-H1700G RGB Mod
 =====================
 
 ![image](front_sfa3.jpeg)
