@@ -12,4 +12,5 @@ Links:
 * [Sony KV-20M40](./sony_kv-20m40/kv-20m40_rgb_comp_mod.md): dual mod RGB + Component
 * [Sony KV-24FV12](./sony_kv-24fv12/24fv12_rgb_mod.md): RGB mod
 * [Sony KV-27XBR25](./sony_kv-27xbr25/kv-27xbr25_mod.md): RGB mod
+* [Ikegami TM20-80R fan mod](./fan_mod_ikegami/ikegami_tm20-80r_fan_mod.md): RGB mod
 
