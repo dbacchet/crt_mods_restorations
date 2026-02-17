@@ -13,14 +13,19 @@ An effective way to lower the internal temperature is to force air flow by insta
 Any side effects? unfortunately yes: electric motors tend to create electromagnetic interference, that gets propagated back to the monitor through the power rail used to power the fan.
 
 To understand the problem let's have a look at the effect of adding a Noctua 40mm fan to an Ikegami TM20-80R. Many ikegami monitors have connectors that expose the 15V rail, and the TM20-80R is no exception: connector CN911 has GND on pin1 and 15V on pin3.
+
 ![image](00_ikegami_fan_connector.png)
 
 Without anything connected, the 15V signal looks like the following:
+
 ![image](01_baseline_no_fan.png)
+
 and you can clearly see how the capacitor in the rectifier is charging/discharging at 60Hz, which is the frequency of the line AC power. In the picture above the DC value is around 16.5V (with no load) and the amplitude of the oscillations around 70 mV.
 
 Installing a fan in series to a 200 Ohm resistor (to slightly lower the voltage and make the fan run quieter) changes the waveform to the following:
+
 ![image](02_200_ohm_and_fan.png)
+
 In the picture the yellow signal is the voltage measured at the connector, and the purple is the voltage measured at the fan. Notice the following:
 
 - the fan motor introduces very big 4.8V spikes, at an average frequency of 140 Hz (purple signal)
@@ -40,11 +45,13 @@ In the rest of the article we will explore option 3.
 
 The most simple circuit is just a variable resistor that is used to tune the voltage to the fan motor; this is needed to make sure the fan is powered with the right voltage and to regulate the fan speed (useful to let it run more silent).
 In my case I used a 500 Ohm potentiomenter, tuned to have approximately 200 Omh resistance in the circuit.
+
 ![image](circuit_basic.png)
 
 The output of this circuit is the one shown in the previous image, with the 140 Hz spikes.
 
 A simple way to filter some of the noise is to add a low pass filter; this can be implemented with a RC network, and I used R=100 Ohm and C=220 uF to achieve a cutoff frequency around 7.5 Hz, well below the 140 Hz we want to get rid of. Since we now have an additional 100 Ohm in the circuit, the variable resistor has been tuned down from 200 to 100 Ohm, to keep the total load consistent.
+
 ![image](circuit_1filter.png)
 
 The result is the one shown in the picture below:
@@ -78,12 +85,15 @@ In case there is no power rail with a compatible voltage for your fan, one optio
 Beside adding the converter, the theory is the same.
 
 With just the buck converter: 
+
 ![image](05_buck_200ohm_and_fan.png)
 
 Adding 1 stage of RC filtering:
+
 ![image](06_buck_100ohm_200uF_100ohm.png)
 
 Adding the second stage of RC filtering:
+
 ![image](07_buck_100ohm_200uF_100ohm_100uF.png)
 
 In this case the input voltage has smaller oscillations because the buck converter I used came with an additional 220 uF filter capacitor at the input.
