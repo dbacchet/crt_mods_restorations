@@ -3,7 +3,7 @@ Sync Mod on a Commodore 2002 CRT Monitor
 
 ![image](game_crtdb.JPG)
 The commodore 2002 is a great monitor, functionally identical to the more famous 1084-D. 
-The CRT tube is the same (see picture with the tube number and reference to the 1084-D page on [CRTDatabase](https://crtdatabase.com/crts/commodore/commodore-1084-d)); interestingly enough, even if the tube number is the same the tint is slightly lighter compared to the 1084-D, probably manifacturing differences since these monitors were produced a few years apart.
+The CRT tube is the same (see picture with the tube number and reference to the 1084-D page on [CRTDatabase](https://crtdatabase.com/crts/commodore/commodore-1084-d)); interestingly enough, even if the tube number is the same the tint is slightly lighter compared to the 1084-D, probably manufacturing differences since these monitors were produced a few years apart.
 
 The chassis design is very similar as well, with one significant (to me...) difference: for Analog RGB, the 2002 _only_ accepts TTL sync, and it will not work natively with 75 Ohm sync coming from consoles, etc.
 
