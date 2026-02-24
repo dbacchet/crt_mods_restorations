@@ -80,7 +80,8 @@ Considering we used just 2 resistors and 2 capacitors, the result is quite good!
 
 ## Using a buck converter
 
-In case there is no power rail with a compatible voltage for your fan, one option is to use a [buck converter](https://en.wikipedia.org/wiki/Buck_converter), that is a circuit that can step up and down the voltage to the required value. The advantage of using a converter instead of a voltage divider is higher efficiency (>90%) and being able to increase the output voltage if needed. The linked Wikipedia page is quite comprehensive.
+In case there is no power rail with a compatible voltage for your fan, one option is to use a [buck converter](https://en.wikipedia.org/wiki/Buck_converter), that is a circuit that can step down the voltage to the required value. The advantage of using a converter instead of a voltage divider is higher efficiency (>90%) and being able to increase the output voltage if needed. The linked Wikipedia page is quite comprehensive.
+If you need to step the voltage up you can use a [boost converter](https://en.wikipedia.org/wiki/Boost_converter) or even a [buck-boost converter](https://en.wikipedia.org/wiki/Buck–boost_converter) if you want a single device that can step up _and_ down as needed.
 
 Beside adding the converter, the theory is the same.
 
